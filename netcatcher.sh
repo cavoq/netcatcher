@@ -18,7 +18,7 @@ if [ -z "$SERVER_PORT" ]; then
 fi
 
 if [ -z "$SERVER_USER" ]; then
-  $SERVER_USER="user"
+  $SERVER_USER="root"
   exit 1
 fi
 
@@ -31,7 +31,7 @@ RETRY_COUNT=0
 echo "Attempting to establish reverse SSH tunnel to $SERVER_ADDRESS on port $SERVER_PORT..."
 
 while true; do
-    ssh -N -R "$SERVER_PORT:localhost:22" -o ServerAliveInterval=60 -i /root/.ssh/id_rsa -p "$SERVER_PORT" $SERVER_USER@"$SERVER_ADDRESS"
+    ssh -R "$SERVER_PORT:localhost:22" -o ServerAliveInterval=60 -i /root/.ssh/id_rsa -p "$SERVER_PORT" $SERVER_USER@"$SERVER_ADDRESS"
 
     if [ $? -eq 0 ]; then
         echo "Reverse SSH tunnel successfully established."
