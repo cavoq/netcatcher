@@ -1,0 +1,17 @@
+version: '3.8'
+
+
+services:
+  netcatcher:
+    network_mode: host
+    image: netcatcher:0.1.3
+    command: ["/bin/bash", "/netcatcher/netcatcher.sh"]
+    build:
+      context: .
+      args:
+        SERVER_ADDRESS: localhost
+        SERVER_PORT: 22
+        SERVER_USER: cavoq
+        PRIVATE_KEY: /home/cavoq/.ssh/id_rsa
+    volumes:
+      - /home/cavoq/.ssh/:/root/.ssh
