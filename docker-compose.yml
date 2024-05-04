@@ -12,6 +12,5 @@ services:
         SERVER_ADDRESS: localhost
         SERVER_PORT: 22
         SERVER_USER: cavoq
-        PRIVATE_KEY: /home/cavoq/.ssh/id_rsa
     volumes:
-      - /home/cavoq/.ssh/:/root/.ssh
+      - /home/cavoq/.ssh/:/root/.ssh/

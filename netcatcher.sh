@@ -5,7 +5,7 @@ source .env
 SERVER_ADDRESS="${SERVER_ADDRESS:-}"
 SERVER_PORT="${SERVER_PORT:-}"
 SERVER_USER="${SERVER_USER:-}"
-PRIVATE_KEY="${PRIVATE_KEY:-}"
+
 
 if [ -z "$SERVER_ADDRESS" ]; then
   $SERVER_ADDRESS="localhost"
@@ -22,10 +22,7 @@ if [ -z "$SERVER_USER" ]; then
   exit 1
 fi
 
-if [ -z "$PRIVATE_KEY" ]; then
-  $PRIVATE_KEY="/root/.ssh/id_rsa"
-  exit 1
-fi
+
 
 
 MAX_RETRIES=5
@@ -34,7 +31,7 @@ RETRY_COUNT=0
 echo "Attempting to establish reverse SSH tunnel to $SERVER_ADDRESS on port $SERVER_PORT..."
 
 while true; do
-    ssh -N -R "$SERVER_PORT:localhost:22" -o ServerAliveInterval=60 -i $PRIVATE_KEY -p "$SERVER_PORT" $SERVER_USER@"$SERVER_ADDRESS"
+    ssh -N -R "$SERVER_PORT:localhost:22" -o ServerAliveInterval=60 -i /root/.ssh/id_rsa -p "$SERVER_PORT" $SERVER_USER@"$SERVER_ADDRESS"
 
     if [ $? -eq 0 ]; then
         echo "Reverse SSH tunnel successfully established."

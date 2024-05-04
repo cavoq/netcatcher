@@ -3,7 +3,6 @@ FROM alpine:latest
 ARG SERVER_ADDRESS=localhost
 ARG SERVER_PORT=22
 ARG SERVER_USER=root
-ARG PRIVATE_KEY=/root/.ssh/id_rsa
 
 RUN apk update && \
     apk add --no-cache openssh-client bash && \
@@ -16,5 +15,5 @@ RUN chmod +x /netcatcher/*.sh
 
 ENV SERVER_ADDRESS=$SERVER_ADDRESS \
     SERVER_PORT=$SERVER_PORT \
-    SERVER_USER=$SERVER_USER \
-    PRIVATE_KEY=$PRIVATE_KEY
+    SERVER_USER=$SERVER_USER
+
