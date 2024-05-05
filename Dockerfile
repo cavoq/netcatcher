@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN apk update && \
-    apk add --no-cache openssh-client sshpass bash && \
+    apk add --no-cache openssh-client sshpass bash tshark && \
     rm -rf /var/cache/apk/*
 
 WORKDIR /netcatcher

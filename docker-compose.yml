@@ -8,6 +8,13 @@ services:
       dockerfile: Dockerfile
     network_mode: host
     image: netcatcher:0.1.3
+    privileged: true
     command: ["/bin/bash", "/netcatcher/netcatcher.sh"]
     env_file:
       - .env
+    volumes:
+      - pcap_data:/pcap_data
+
+volumes:
+  pcap_data:
+    name: pcap_data
