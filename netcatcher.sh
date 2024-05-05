@@ -1,25 +1,9 @@
 #!/bin/bash
 
-SERVER_ADDRESS="${SERVER_ADDRESS:-}"
-SERVER_PORT="${SERVER_PORT:-}"
-SERVER_USER="${SERVER_USER:-}"
+SERVER_ADDRESS="${SERVER_ADDRESS:-localhost}"
+SERVER_PORT="${SERVER_PORT:-22}"
+SERVER_USER="${SERVER_USER:-root}"
 SERVER_PASSWORD="${SERVER_PASSWORD:-}"
-
-
-if [ -z "$SERVER_ADDRESS" ]; then
-  $SERVER_ADDRESS="localhost"
-  exit 1
-fi
-
-if [ -z "$SERVER_PORT" ]; then
-  $SERVER_PORT="22"
-  exit 1
-fi
-
-if [ -z "$SERVER_USER" ]; then
-  $SERVER_USER="root"
-  exit 1
-fi
 
 if [ -z "$SERVER_PASSWORD" ]; then
   echo "SERVER_PASSWORD is not set."
