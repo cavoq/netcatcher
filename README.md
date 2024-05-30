@@ -17,7 +17,7 @@ INTERVAL=<INTERVAL_TO_SEND_PACKETS>
 
 ## Usage
 
-To start the server, run the following command:
+To start the server, run the following command after cloning the repository:
 
 ```bash
 docker-compose up
