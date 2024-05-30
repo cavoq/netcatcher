@@ -6,7 +6,7 @@ RUN apk update && \
 
 WORKDIR /netcatcher
 
-COPY *.sh .env /netcatcher/
+COPY *.sh  /netcatcher/
 
 RUN chmod +x /netcatcher/*.sh
 
