@@ -1,26 +1,31 @@
 PROJECT=netcatcher
-VERSION=0.1.3
+VERSION=0.1.4
+ENVIROMENT=.env
+REGISTRY=ghcr.io
 
+include $(ENVIROMENT)
+export $(shell sed 's/=.*//' $(ENVIROMENT))
 
 help: ## Get help for Makefile
 	@echo "\n#### $(PROJECT) v$(VERSION) ####\n"
 	@echo "Available targets:\n"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' Makefile | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 	@echo "\n"
 
 docker-build: ## Build docker image
-	docker build -t $(PROJECT):$(VERSION) .
+	@docker build -t $(REGISTRY)/$(GITHUB_USER)/$(PROJECT):$(VERSION) .
+
+docker-push: ## Push docker image
+	@docker login ghcr.io -u $(GITHUB_USER) -p $(GITHUB_ACCESS_TOKEN)
+	@docker push $(REGISTRY)/$(GITHUB_USER)/$(PROJECT):$(VERSION)
 
 docker-run: ## Run docker container
-	docker-compose up
-
-docker-test: ## Run tests in docker container
-	docker run --network=host --rm $(PROJECT):$(VERSION) make test
+	@docker-compose up $(PROJECT)
 
 docker-bash: ## Shell into docker container
-	docker run --network=host --rm -it $(PROJECT):$(VERSION) bash
+	@docker-compose run $(PROJECT) /bin/bash
 
 docker-remove: ## Remove docker container
-	@docker container rm $(PROJECT):$(VERSION)
+	@docker container rm $(REGISTRY)/$(GITHUB_USER)/$(PROJECT):$(VERSION)
 
-.PHONY: help docker-build docker-bash docker-remove docker-test docker-run
+.PHONY: help docker-build docker-bash docker-remove docker-run docker-push
