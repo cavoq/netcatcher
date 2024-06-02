@@ -6,10 +6,9 @@ SERVER_USER="${SERVER_USER:-root}"
 SERVER_PASSWORD="${SERVER_PASSWORD:-}"
 
 if [ -z "$SERVER_PASSWORD" ]; then
-  echo "SERVER_PASSWORD is not set."
-  exit 1
+    echo "SERVER_PASSWORD is not set."
+    exit 1
 fi
-
 
 MAX_RETRIES=5
 RETRY_COUNT=0

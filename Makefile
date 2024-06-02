@@ -1,5 +1,5 @@
 PROJECT=netcatcher
-VERSION=0.1.5
+VERSION=1.0.0
 ENVIROMENT=.env
 REGISTRY=ghcr.io
 
@@ -20,12 +20,16 @@ docker-push: ## Push docker image
 	@docker push $(REGISTRY)/$(GITHUB_USER)/$(PROJECT):$(VERSION)
 
 docker-run: ## Run docker container
-	@docker-compose up $(PROJECT)
+	@docker-compose up $(PROJECT) -d
 
 docker-bash: ## Shell into docker container
 	@docker-compose run $(PROJECT) /bin/bash
 
 docker-remove: ## Remove docker container
 	@docker container rm $(REGISTRY)/$(GITHUB_USER)/$(PROJECT):$(VERSION)
+
+clean: ## Clean volumes and logs
+	@docker-compose down -v
+	@rm -rf logs/*
 
 .PHONY: help docker-build docker-bash docker-remove docker-run docker-push
